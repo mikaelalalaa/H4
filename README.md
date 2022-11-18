@@ -53,17 +53,43 @@ Molemmista konesta saatiin `network is unreachable` eli voidaan aloittaa harjoit
 
 ## d) nmap don't ping -Pn
 
+![image](https://user-images.githubusercontent.com/93308960/202804307-b7c6e676-6420-4dda-8bd5-9f6e614bd79e.png)
+
+![image](https://user-images.githubusercontent.com/93308960/202804354-c7320ca3-4910-465f-b48d-fdc23f397573.png)
+
+
 ## e) nmap version detection -sV
 
+![image](https://user-images.githubusercontent.com/93308960/202804649-98a3b219-0d5d-4510-8296-96ab57577f25.png)
+
+![image](https://user-images.githubusercontent.com/93308960/202804691-b4049d81-650b-46df-80bc-7116f30b0374.png)
+
+
 ## f) nmap porttien valinta -p1-100, --top-ports 5, -p-
+
+![image](https://user-images.githubusercontent.com/93308960/202805920-5d40c09a-7bc8-4822-b3ef-42128b6324f4.png)
+
+
+![image](https://user-images.githubusercontent.com/93308960/202805828-02549fe0-c98e-49fc-8f04-cd161454d0a2.png)
+
+
+![image](https://user-images.githubusercontent.com/93308960/202805683-4a231770-6193-49a0-a9f1-4fa55450f9ec.png)
+
+
 
 ## g) nmap ip-osoitteiden valinta; luettelo, verkkomaskilla 10.10.10.0/24, alku- ja loppuosoitteella 10.10.10.100-130 
 
 ## h) nmap output files -oA foo
 
+![image](https://user-images.githubusercontent.com/93308960/202806618-85795480-136f-40fa-b420-007a7643fd33.png)
+
+
 ## k) nmap ajonaikaiset toiminnot
 
 ## l) normaalisti 'sudo nmap'
+
+![image](https://user-images.githubusercontent.com/93308960/202807010-eb8fcced-0b3e-48d1-b581-03435d9b0044.png)
+
 
 ## m) nmap, vertaile -A
 
@@ -74,3 +100,11 @@ Molemmista konesta saatiin `network is unreachable` eli voidaan aloittaa harjoit
 ## e) Mitkä ovat tavallisimmat tai kiinnostavimmat palvelut, joita UDP-skannauksella voisi löytää? 
 
 ## f) Miksi UDP-skannaus on hankalaa ja epäluotettavaa?
+
+# Lähteet
+
+https://www.stationx.net/nmap-cheat-sheet/
+
+https://explainshell.com/explain?cmd=nmap+-sT+-PN+-n
+
+https://blog.eldernode.com/how-to-use-wireshark-in-nmap/
