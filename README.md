@@ -9,12 +9,22 @@ Tunkeutumistestaus kurssin kotiläksy H4 Intelligence cap. Alkuperäisen tehtäv
 
 [Lyon 2009: Nmap Network Scanning](https://nmap.org/book/nmap-overview-and-demos.html)
 
-[]()
 
 
-[]()
 
 []()
+
+[Port Scanning Basics](https://nmap.org/book/man-port-scanning-basics.html)
+
+* OPEN 
+  * sovellus aktiivisestin hyväksyy TCP yhteyksiä, UDP datagram tai SCTP kyseiseen porttiin
+* CLOSED
+  * suljettu portti on helppopääsyinen (se vastaanottaa ja vastaa nmap probe paketteihin) mutta siellä ei ole sovellusta kuuntelemassa sitä.
+* FILTERED
+  * Namp ei osaa päättää onko portti auki koska paketin filtterointi estää probs pakettien pääsyn porttiin.
+  * filtterointi voi johtua palomuurista, reititys säännöistä tai host-based palomuurti sovelluksesta
+* UNFILTERED
+  * tila tarkoittaa että portti on saatavilla mutta nmap ei osaa päättää onko portti auki vai kiinni.
 
 
 # Miten nmap toimii? Testejä, liikenteen sieppaamista snifferillä (wireshark) ja tuloksien analysointi.
