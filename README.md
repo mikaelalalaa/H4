@@ -122,14 +122,22 @@ Tiedosto tyypit:
 
 ## k) nmap ajonaikaiset toiminnot
 
+Isojen skannauksien aikana voidaan saada tietoa sen etenemisestä erillaisilla komennoilla. 
+
+Komento vaihto ehdot saadaan esille kysymysmerkillä `?`.
 
 ![image](https://user-images.githubusercontent.com/93308960/202848918-00dee716-8bbf-4217-9d2e-9a66e365210c.png)
 
+**v/V** nostaa tai vähentää verbosity tasoa. Tulostaa tietoja ajon aikana
+
 ![image](https://user-images.githubusercontent.com/93308960/202848965-eb61fba4-9516-41c7-bf4f-c42944137180.png)
+
+**d/D** nostaa tai vähentää debukkauksen tasoa
 
 ![image](https://user-images.githubusercontent.com/93308960/202848970-3af957f4-1c72-4cc8-b1a8-b11921472e3c.png)
 
-![image](https://user-images.githubusercontent.com/93308960/202848998-ffbb86b1-8831-43c0-8561-3506030ec28d.png)
+
+**f** saadaan tietoa skannauksen kestosta
 
 ![image](https://user-images.githubusercontent.com/93308960/202849008-83bb6615-f75b-431e-880b-24e0fd54f308.png)
 
@@ -147,6 +155,8 @@ Ajoin saman komennon mutta lisäsin sudon `sudo namp -sS -p 80 192.168.56.107` j
 
 
 ## m) nmap, vertaile -A
+
+Lisäämällä nmap komentoon -A mahdollistaa käyttöjärjestelmän havaitsemisen, versiontunnistuksen, skriptiskannauksen ja jäljitysreitin. 
 
 ![image](https://user-images.githubusercontent.com/93308960/202849747-4a27fc8d-1635-4241-a571-63f6bc31475b.png)
 
@@ -181,17 +191,15 @@ Tarkistetaav vielä että se on oikeastin käytössä kirjoittamalla koneen ip-o
 
 ![image](https://user-images.githubusercontent.com/93308960/202850660-380f2eab-b32a-4a9c-9fc1-a58703cefcf4.png)
 
+Sitten laitettiin wireshark taustalle pyörimään ja ajettiin terminaalissa komento `sudo nmap -sV -p 80 192.168.56.`
 
-![image](https://user-images.githubusercontent.com/93308960/202850952-0e55605a-d111-4bb0-be4a-a88256c714ae.png)
-
+Kävin ekaksi katsomassa apachen loki tiedostot `var/log/apache2`, sieltä löysin `access.log` tieodoston. Katsoin sisällön `cat access.log` jossa silmääni osui  `GET /nmapcheck` kohta. Skannaus näky selvästi loki tiedoissa.
 
 ![image](https://user-images.githubusercontent.com/93308960/202851496-ee539068-b4de-4f59-bd62-91f52eb06a68.png)
 
+Loki tiedostojen katselun jälkeen katsottiin wiresharkkia. Siellähän oli dataa ja paljon mutta filtteroitiin se sillein että näkyy HTTP protokolla. Sielläkin skannaus oli selkokielellä esillä samallailla  `GET /nmapcheck` kun lokeissa.
 
 ![image](https://user-images.githubusercontent.com/93308960/202851514-13842c6d-b9c3-42d8-a68f-e9f4764c3d55.png)
-
-
-![image](https://user-images.githubusercontent.com/93308960/202851594-f0305d1c-f5e9-49e3-9dec-0a06720581e7.png)
 
 
 # UDP-skannaus.
