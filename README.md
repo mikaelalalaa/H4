@@ -6,9 +6,19 @@ Tunkeutumistestaus kurssin kotiläksy H4 Intelligence cap. Alkuperäisen tehtäv
 
 [€ Santos et al: The Art of Hacking (Video Collection)](https://learning.oreilly.com/videos/the-art-of/9780135767849/9780135767849-SPTT_04_00/)
 
+Active reconnaissance
+ * yritetään saada tietoa kohteesta käyttämällä erillaisia työkaluja kuten nmap
+* portti skannaus
+   * Masscan nope tapa porttien skannaukseen
+* haavoittuvuuksien skannaus
+   * verkon ja/tai webin haavoittuvuudet
+   * työkaluja nmap, wireshark , netcat
 
 [Lyon 2009: Nmap Network Scanning](https://nmap.org/book/nmap-overview-and-demos.html)
 
+* Avatar online yritys palkkasi Felixin tekemään tunkeutumis testausta eli etsimään haavoittuvuuksia järjestelmästä ja myös fyysisestä turvasta
+ 
+* trinity yrittää kaataa verkkoja
 
 
 
@@ -43,7 +53,9 @@ Aloitettiin TCP yhteyden skannaamisella, laitoin wiresharkin taustalle ja ajoin 
 
 ![image](https://user-images.githubusercontent.com/93308960/202801825-4cc2d399-4130-42a2-82e1-e00c345a152a.png)
 
-TCP yhteyden skannaamisella luodaan täys yhteys kohteeseen 
+TCP yhteyden skannaamisella luodaan täys yhteys kohteeseen ja käy läpi TCP 3 way handshake. Portille lähetettiin SYN paketti josta vastauksesi tuli SYN, ACK tämän jälkeen nmap lähettää uudestaan ACK pyynnön.
+
+TCP skannauksella pyritään samaan täysi yhteys kohteeseen.
 
 ![image](https://user-images.githubusercontent.com/93308960/202801786-68446e01-0563-4b6b-ab0c-fe1cf26b6588.png)
 
@@ -54,6 +66,9 @@ Skannataan SYN portteja. Wireshark taakselle käyntiin ja ajettiin komento `sudo
 
 ![image](https://user-images.githubusercontent.com/93308960/202802112-27aafb5d-915b-4460-bc05-79fde6907c8a.png)
 
+Tässä aloitetaan samalla kun TCP skannauksella eli lähetetään portille SYN paketti, jonka vastauksena tuli SYN ACK, mutta sen sijaan että lähetettäisiin uusi ACK paketti SYN skannaus lopettaa yhteyden.
+
+SYN skannaus täydentää vain puolet yhteydestä kohteeseen 
 
 ![image](https://user-images.githubusercontent.com/93308960/202802062-2387e935-768c-4841-8382-2ddfec3dc016.png)
 
@@ -68,11 +83,13 @@ Otin tähän esimerkkinä komennon `sudo nmap -sn 192.168.0/24`. Tässä ei port
 
 ![image](https://user-images.githubusercontent.com/93308960/202803042-4810ba57-32b1-45d2-99c6-0eabc65c002c.png)
 
-Wireshark oli taas taustalla. Tässä tuloksena tuli vain ARP paketteja
+Wireshark oli taas taustalla. Tässä tuloksena tuli vain ARP paketteja eli kysellään mikäkin ip-osoite kuuluu kellekkin
 
 ![image](https://user-images.githubusercontent.com/93308960/202803002-d42869e5-d42d-4eb2-bbf0-c3121a7fc5bb.png)
 
 ## d) nmap don't ping -Pn
+
+-Pn skannataan kohteen kaikki avoimet portit
 
 ![image](https://user-images.githubusercontent.com/93308960/202804307-b7c6e676-6420-4dda-8bd5-9f6e614bd79e.png)
 
@@ -85,6 +102,9 @@ Portti skannauksen lisäksi yritetään saada palvelun versio joka on käynniss�
 Komentona toimii `sudo nmap -sV -p 21 192.168.56.107`, tässä halusin tietää mikä palvelu ja versio toimii portin 21 takana
 
 ![image](https://user-images.githubusercontent.com/93308960/202804649-98a3b219-0d5d-4510-8296-96ab57577f25.png)
+
+en osaa sen enempää kertoa että portille ollaan lähetetty syn paketteja ja vastauksia ollaan saatu. 
+
 
 ![image](https://user-images.githubusercontent.com/93308960/202804691-b4049d81-650b-46df-80bc-7116f30b0374.png)
 
@@ -105,13 +125,18 @@ Toisena testattiin `--top-ports 5` komentoa ja tuloksena tuli 5 suosituinta port
 
 ![image](https://user-images.githubusercontent.com/93308960/202805828-02549fe0-c98e-49fc-8f04-cd161454d0a2.png)
 
-Tässä vielä katsoin miltä näyttää wiresharkissa
+Tässä vielä katsoin miltä näyttää wiresharkissa, tämä ei ollut sen erillaisempi kun perus -sT skannaus
 
 ![image](https://user-images.githubusercontent.com/93308960/202805683-4a231770-6193-49a0-a9f1-4fa55450f9ec.png)
 
 
 
 ## g) nmap ip-osoitteiden valinta; luettelo, verkkomaskilla 10.10.10.0/24, alku- ja loppuosoitteella 10.10.10.100-130 
+
+```
+sudo nmap -sS 192.168.56.0-255
+```
+Skanna verkon ip-osoitteet 0-255 välillä.
 
 ![image](https://user-images.githubusercontent.com/93308960/202850000-6af21bb1-c682-4d50-acc8-4ba32795c785.png)
 
@@ -123,8 +148,8 @@ Komentona toimi `sudo nmap -sV --top-ports 5 192.168.56.107 -oA foo`, tuloksena 
 
 Tiedosto tyypit:
 
-* gnmap - grepattu tiedosto
-* nmap -
+* gnmap - grepattu tiedosto, helppo käsitellä komentorivillä
+* nmap 
 * xml - Extensible Markup Language sopii jos pitää siirtää tiedostoa 
 
 ![image](https://user-images.githubusercontent.com/93308960/202806618-85795480-136f-40fa-b420-007a7643fd33.png)
@@ -168,7 +193,17 @@ Ajoin saman komennon mutta lisäsin sudon `sudo namp -sS -p 80 192.168.56.107` j
 
 Lisäämällä nmap komentoon -A mahdollistaa käyttöjärjestelmän havaitsemisen, versiontunnistuksen, skriptiskannauksen ja jäljitysreitin. 
 
+Skannaus komentona toimi `sudo nmap -A 192.168.56.107` ja tämähän kesti jonki aikaan.
+
+pari kohtaa jotka jäi mieleen:
+
+Portti 80 on auki, sen takan pyörii apache/2.2.8(ubuntu) versio. Sivun http nimi on Metasploitable 
+
+Portti 21 on auki, sen takana pyörii FTP palvelu ja versio on vsftpd 2.3.4. Jos ymmärsin oikein niin sen lisäksi kerrotaan mihin on otettu yhteyttä ja kerrotaan jotain siitä yhteydestä 
+
 ![image](https://user-images.githubusercontent.com/93308960/202849747-4a27fc8d-1635-4241-a571-63f6bc31475b.png)
+
+Sitten löytyi skriptejä ja traceroute
 
 ![image](https://user-images.githubusercontent.com/93308960/202849768-0cc1159f-0100-498c-9aac-0c7f8e6a3f1c.png)
 
@@ -244,3 +279,5 @@ https://blog.eldernode.com/how-to-use-wireshark-in-nmap/
 https://www.ibm.com/docs/en/qsip/7.4?topic=practices-scan-duration-ports-scanning
 
 https://www.researchgate.net/figure/ICMP-error-message-format-ICMP-error-messages-of-Type-3-represent-a-destination_fig1_332993177
+
+https://medium.com/@avirj/nmap-tcp-syn-scan-50106f818bf1
