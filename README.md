@@ -136,7 +136,9 @@ Tässä vielä katsoin miltä näyttää wiresharkissa, tämä ei ollut sen eril
 ```
 sudo nmap -sS 192.168.56.0-255
 ```
-Skanna verkon ip-osoitteet 0-255 välillä.
+Skanna verkon ip-osoitteet 0-255 välillä. vaihto ehtona on myös `sudo nmap -sS 192.168.56.0/24`
+
+Näitä on hyvä käyttää jos haluaa skannata tiettyä verkkoa tai ip-osoitteen avaruutta.
 
 ![image](https://user-images.githubusercontent.com/93308960/202850000-6af21bb1-c682-4d50-acc8-4ba32795c785.png)
 
