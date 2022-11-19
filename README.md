@@ -29,14 +29,18 @@ Molemmista konesta saatiin `network is unreachable` eli voidaan aloittaa harjoit
 
 ## a) nmap TCP connect scan -sT
 
+Aloitettiin TCP yhteyden skannaamisella, laitoin wiresharkin taustalle ja ajoin komennon `sudo nmap -sT -p 80 192.168.56.107`, jotta ei tulis liikaa dataa niin kohdensin skannauksen yhteen porttiin eli -p 80.
 
 ![image](https://user-images.githubusercontent.com/93308960/202801825-4cc2d399-4130-42a2-82e1-e00c345a152a.png)
 
+TCP yhteyden skannaamisella luodaan täys yhteys kohteeseen 
 
 ![image](https://user-images.githubusercontent.com/93308960/202801786-68446e01-0563-4b6b-ab0c-fe1cf26b6588.png)
 
 
 ## b) nmap TCP SYN "used to be stealth" scan, -sS
+
+Skannataan SYN portteja. Wireshark taakselle käyntiin ja ajettiin komento `sudo nmap -sS -p 80 192.168.56.107`
 
 ![image](https://user-images.githubusercontent.com/93308960/202802112-27aafb5d-915b-4460-bc05-79fde6907c8a.png)
 
@@ -46,8 +50,15 @@ Molemmista konesta saatiin `network is unreachable` eli voidaan aloittaa harjoit
 
 ## c) nmap ping sweep -sn
 
+Otin tähän esimerkkinä komennon `sudo nmap -sn 192.168.0/24`. Tässä ei portti skannata vain katsotaan mitä host koneita on kyseisessä verkossa. Tuloksesta voidaan päätellä
+
+ *  IP-osoite
+ *  MAC osite
+ *  Onko host käynnissä vai ei
+
 ![image](https://user-images.githubusercontent.com/93308960/202803042-4810ba57-32b1-45d2-99c6-0eabc65c002c.png)
 
+Wireshark oli taas taustalla. Tässä tuloksena tuli vain ARP paketteja
 
 ![image](https://user-images.githubusercontent.com/93308960/202803002-d42869e5-d42d-4eb2-bbf0-c3121a7fc5bb.png)
 
@@ -55,7 +66,7 @@ Molemmista konesta saatiin `network is unreachable` eli voidaan aloittaa harjoit
 
 ![image](https://user-images.githubusercontent.com/93308960/202804307-b7c6e676-6420-4dda-8bd5-9f6e614bd79e.png)
 
-![image](https://user-images.githubusercontent.com/93308960/202804354-c7320ca3-4910-465f-b48d-fdc23f397573.png)
+
 
 
 ## e) nmap version detection -sV
