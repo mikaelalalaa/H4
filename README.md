@@ -71,18 +71,31 @@ Wireshark oli taas taustalla. Tässä tuloksena tuli vain ARP paketteja
 
 ## e) nmap version detection -sV
 
+Portti skannauksen lisäksi yritetään saada palvelun versio joka on käynnissä portin takana. 
+Komentona toimii `sudo nmap -sV -p 21 192.168.56.107`, tässä halusin tietää mikä palvelu ja versio toimii portin 21 takana
+
 ![image](https://user-images.githubusercontent.com/93308960/202804649-98a3b219-0d5d-4510-8296-96ab57577f25.png)
 
 ![image](https://user-images.githubusercontent.com/93308960/202804691-b4049d81-650b-46df-80bc-7116f30b0374.png)
 
 
-## f) nmap porttien valinta -p1-100, --top-ports 5, -p-
+## f) nmap porttien valinta -p1-100, --top-ports 5
+
+Testasin kahta eri komentoa jolla saadaan valita tietyt portit jota skannataan.
+
+Ekana halusin skannata 21-80 porttiväliltä olevat portit
+
+```
+sudo nmap -p 21-80 192.168.56.107
+```
 
 ![image](https://user-images.githubusercontent.com/93308960/202805920-5d40c09a-7bc8-4822-b3ef-42128b6324f4.png)
 
+Toisena testattiin `--top-ports 5` komentoa ja tuloksena tuli 5 suosituinta porttia. Toki komennossa numeron määrää voi muuttaa riippuen kuinka monta porttia haluaa skannata 
 
 ![image](https://user-images.githubusercontent.com/93308960/202805828-02549fe0-c98e-49fc-8f04-cd161454d0a2.png)
 
+Tässä vielä katsoin miltä näyttää wiresharkissa
 
 ![image](https://user-images.githubusercontent.com/93308960/202805683-4a231770-6193-49a0-a9f1-4fa55450f9ec.png)
 
@@ -94,6 +107,15 @@ Wireshark oli taas taustalla. Tässä tuloksena tuli vain ARP paketteja
 
 
 ## h) nmap output files -oA foo
+
+lisäämällä `-oA` komentoon luodaan 3 eri tyyppistä tiedostoa, joihin tallennetaan skannaus tulokset.
+Komentona toimi `sudo nmap -sV --top-ports 5 192.168.56.107 -oA foo`, tuloksena tuli 5 suosittua porttia, palvelut ja niiden verisot jotka toimivat porttien takana, ja lopuksi se luo tiedostot nimeltään foo.
+
+Tiedosto tyypit:
+
+* gnmap - grepattu tiedosto
+* nmap -
+* xml - Extensible Markup Language sopii jos pitää siirtää tiedostoa 
 
 ![image](https://user-images.githubusercontent.com/93308960/202806618-85795480-136f-40fa-b420-007a7643fd33.png)
 
@@ -114,19 +136,14 @@ Wireshark oli taas taustalla. Tässä tuloksena tuli vain ARP paketteja
 
 ## l) normaalisti 'sudo nmap'
 
+Kuvasta näkyy molemmat ilman sudolla ja sudon kanssa.
+
+Yritin skannata portteja ilman sudo eli komento oli `namp -sS -p 80 192.168.56.107` tulokseksi tuli että ei ole root oikeutta ja Quitting! en voinut skannata koska ei ollut oikeuksia.
+
+Ajoin saman komennon mutta lisäsin sudon `sudo namp -sS -p 80 192.168.56.107` ja pystyin skannata.
+
 ![image](https://user-images.githubusercontent.com/93308960/202807010-eb8fcced-0b3e-48d1-b581-03435d9b0044.png)
 
-
-![image](https://user-images.githubusercontent.com/93308960/202849200-5a39b27f-bf03-46f1-a0bd-403d5972124a.png)
-
-
-![image](https://user-images.githubusercontent.com/93308960/202849190-fae71e4d-8827-4aca-92a1-b6ffaedaa2f4.png)
-
-
-![image](https://user-images.githubusercontent.com/93308960/202849294-0989813f-fd4c-4d51-a713-4870be9b7aba.png)
-
-
-![image](https://user-images.githubusercontent.com/93308960/202849276-682dca90-fc6d-4376-a0d4-cbb82e007150.png)
 
 
 ## m) nmap, vertaile -A
